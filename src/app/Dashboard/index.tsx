@@ -2,6 +2,8 @@ import { useTheme } from "../../context/ThemeProvider";
 import { FaRegMoon } from "react-icons/fa";
 import { LuSun } from "react-icons/lu";
 
+import {StatusCard} from "../../components/StatusCard.tsx";
+
 export default function Dashboard() {
   const { mode, toggleMode } = useTheme();
 
@@ -20,7 +22,7 @@ export default function Dashboard() {
     },
     {
       name: "Notifications",
-      status: "Operational",
+      status: "Error",
       uptime: "100.0%",
       bars: 90,
     },
@@ -37,7 +39,7 @@ export default function Dashboard() {
       <div className="bg-[var(--bgPrimaryColor)] text-[var(--titleColor)] px-6 py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div className="flex items-center gap-3">
           <img
-            src="/icon.png"
+            src="/iconTruther.png"
             alt="Logo"
             className="h-10 w-10 object-contain"
           />
@@ -68,7 +70,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-6 justify-items-center">
         <div className="bg-green-500 text-white px-4 py-3 rounded mb-6">
           <strong>All Systems Operational</strong>
         </div>
@@ -82,24 +84,13 @@ export default function Dashboard() {
 
         <div className="space-y-6">
           {components.map((component, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-center mb-2">
-                <h2 className="text-md font-medium">{component.name}</h2>
-                <span className="text-sm text-green-600 font-semibold">
-                  {component.status}
-                </span>
-              </div>
-              <div className="flex items-center space-x-1 mb-1">
-                {Array.from({ length: component.bars }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-4 w-1 rounded bg-green-500"
-                    title={`Day ${i + 1}`}
-                  />
-                ))}
-              </div>
-              <p className="text-xs text-gray-500">{component.uptime} uptime</p>
-            </div>
+            <StatusCard
+              key={index}
+              name={component.name}
+              status={component.status}
+              uptime={component.uptime}
+              bars={component.bars}
+            />
           ))}
         </div>
       </div>
