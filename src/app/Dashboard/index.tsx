@@ -1,3 +1,5 @@
+import {StatusCard} from "../../components/StatusCard.tsx";
+
 export default function Dashboard() {
 
   const components = [
@@ -15,7 +17,7 @@ export default function Dashboard() {
     },
     {
       name: "Notifications",
-      status: "Operational",
+      status: "Error",
       uptime: "100.0%",
       bars: 90,
     },
@@ -32,11 +34,11 @@ export default function Dashboard() {
       <div className="bg-[#2C2C2C] text-white px-6 py-4 flex justify-between items-center">
         <div className="flex items-center justify-center gap-3">
           <img
-            src="/icon.png"
+            src="/iconTruther.png"
             alt="Logo"
             className="h-10 w-10 object-contain"
           />
-          <text className="text-4xl font-semibold">truther Status</text>
+          <span className="text-4xl font-semibold">Truther Status</span>
         </div>
         <div className="space-x-4">
           <button className="bg-[#272727]">Assinar atualizações</button>
@@ -44,7 +46,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-6 justify-items-center">
         <div className="bg-green-500 text-white px-4 py-3 rounded mb-6">
           <strong>All Systems Operational</strong>
         </div>
@@ -58,24 +60,13 @@ export default function Dashboard() {
 
         <div className="space-y-6">
           {components.map((component, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-center mb-2">
-                <h2 className="text-md font-medium">{component.name}</h2>
-                <span className="text-sm text-green-600 font-semibold">
-                  {component.status}
-                </span>
-              </div>
-              <div className="flex items-center space-x-1 mb-1">
-                {Array.from({ length: component.bars }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-4 w-1 rounded bg-green-500"
-                    title={`Day ${i + 1}`}
-                  />
-                ))}
-              </div>
-              <p className="text-xs text-gray-500">{component.uptime} uptime</p>
-            </div>
+            <StatusCard
+              key={index}
+              name={component.name}
+              status={component.status}
+              uptime={component.uptime}
+              bars={component.bars}
+            />
           ))}
         </div>
       </div>
