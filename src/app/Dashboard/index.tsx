@@ -70,7 +70,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="p-6 justify-items-center">
+      <div className="p-6">
         <div className="bg-green-500 text-white px-4 py-3 rounded mb-6">
           <strong>All Systems Operational</strong>
         </div>
@@ -81,8 +81,7 @@ export default function Dashboard() {
             Veja o histórico de tempo de atividade.
           </a>
         </p>
-
-        <div className="space-y-6">
+        <div className="flex items-center flex-col space-y-6">
           {components.map((component, index) => (
             <StatusCard
               key={index}
