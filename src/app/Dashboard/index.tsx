@@ -1,4 +1,9 @@
+import { useTheme } from "../../context/ThemeProvider";
+import { FaRegMoon } from "react-icons/fa";
+import { LuSun } from "react-icons/lu";
+
 export default function Dashboard() {
+  const { mode, toggleMode } = useTheme();
 
   const components = [
     {
@@ -28,19 +33,38 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen w-screen bg-[#272727] text-white">
-      <div className="bg-[#2C2C2C] text-white px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center justify-center gap-3">
+    <div className="min-h-screen w-screen bg-[var(--bgSecondaryColor)] text-[var(--titleColor)]">
+      <div className="bg-[var(--bgPrimaryColor)] text-[var(--titleColor)] px-6 py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <div className="flex items-center gap-3">
           <img
             src="/icon.png"
             alt="Logo"
             className="h-10 w-10 object-contain"
           />
-          <text className="text-4xl font-semibold">truther Status</text>
+          <text className="text-4xl font-semibold text-[#2BE095]">
+            truther Status
+          </text>
         </div>
-        <div className="space-x-4">
-          <button className="bg-[#272727]">Assinar atualizações</button>
-          <button className="">Reportar problema</button>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 gap-2 sm:gap-0">
+          <div
+            className="bg-transparent h-12 flex items-center justify-center p-4 rounded-xl"
+            onClick={() => {}}
+          >
+            <text className="">Relatar problema</text>
+          </div>
+          <div
+            className="bg-transparent h-12 flex items-center justify-center p-4 border-[2px] border-[#2BE095] rounded-xl"
+            onClick={() => {}}
+          >
+            <text className="text-[#2BE095] font-medium">Assinar atualizações</text>
+          </div>
+
+          <div
+            className="bg-transparent h-12 flex items-center justify-center p-4"
+            onClick={toggleMode}
+          >
+            {mode == "dark" ? <FaRegMoon size={24}/> : <LuSun size={24} color="#000"/>}
+          </div>
         </div>
       </div>
 
