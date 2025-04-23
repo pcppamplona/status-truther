@@ -7,14 +7,9 @@ interface StatusOverviewCounts {
     warning: number;
 }
 
-interface StatusOverviewData {
+export interface StatusOverview {
     status: "green" | "yellow" | "red";
     counts: StatusOverviewCounts;
     updated_at: string;
     active_incidents: number;
-}
-
-export interface StatusOverviewResponse {
-    success: boolean;
-    data: StatusOverviewData;
 }
