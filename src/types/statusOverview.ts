@@ -1,4 +1,4 @@
-export interface StatusOverviewCounts {
+interface StatusOverviewCounts {
     total: number;
     up: number;
     down: number;
@@ -7,7 +7,7 @@ export interface StatusOverviewCounts {
     warning: number;
 }
 
-export interface StatusOverviewData {
+interface StatusOverviewData {
     status: "green" | "yellow" | "red";
     counts: StatusOverviewCounts;
     updated_at: string;

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { StatusService } from "@/services/statusService";
-import {StatusOverviewData} from "@/types/status.ts";
+import {StatusOverviewResponse} from "@/types/statusOverview.ts";
 
 export function useStatusOverview() {
-    const [data, setData] = useState<StatusOverviewData | null>(null);
+    const [data, setData] = useState<StatusOverviewResponse | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
 
