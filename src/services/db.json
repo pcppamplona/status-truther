@@ -1,0 +1,170 @@
+{
+  "services": [
+    { "id": 1, "name": "DocSend" },
+    { "id": 2, "name": "Payments API" },
+    { "id": 6, "name": "Notifications" },
+    { "id": 14, "name": "Auth Provider" }
+  ],
+  "status_overview": [
+    {
+      "id": 1,
+      "service_id": 1,
+      "status": "green",
+      "counts": {
+        "total": 10,
+        "up": 10,
+        "down": 0,
+        "maintenance": 0,
+        "critical": 0,
+        "warning": 0
+      },
+      "updated_at": "2025-05-06T12:00:00Z",
+      "active_incidents": 0
+    },
+    {
+      "id": 2,
+      "service_id": 2,
+      "status": "yellow",
+      "counts": {
+        "total": 12,
+        "up": 9,
+        "down": 1,
+        "maintenance": 1,
+        "critical": 0,
+        "warning": 1
+      },
+      "updated_at": "2025-05-06T13:00:00Z",
+      "active_incidents": 2
+    },
+    {
+      "id": 3,
+      "service_id": 6,
+      "status": "red",
+      "counts": {
+        "total": 15,
+        "up": 10,
+        "down": 3,
+        "maintenance": 0,
+        "critical": 2,
+        "warning": 0
+      },
+      "updated_at": "2025-05-06T14:00:00Z",
+      "active_incidents": 3
+    }
+  ],
+  "status_summary": [
+    {
+      "id": 1,
+      "uptime_percentage": 98.4,
+      "average_response_time": 600,
+      "monitored_services": 15,
+      "incidents_last_24h": 6,
+      "critical_incidents": 2,
+      "warning_incidents": 1,
+      "maintenance_windows": 1,
+      "last_updated": "2025-05-06T14:00:00Z"
+    }
+  ],
+  "status_dependencies": [
+    {
+      "id": 1,
+      "service_id": 14,
+      "name": "Auth Provider",
+      "type": "external",
+      "status": "degraded",
+      "uptime": 96.2,
+      "response_time": 1300
+    },
+    {
+      "id": 2,
+      "service_id": 15,
+      "name": "SMS Gateway",
+      "type": "dependency",
+      "status": "operational",
+      "uptime": 99.7,
+      "response_time": 250
+    }
+  ],
+  "status_incidents": [
+    {
+      "id": 201,
+      "service_id": 6,
+      "alert_name": "Queue Delay",
+      "severity": "warning",
+      "started_at": "2025-05-06T12:30:00Z",
+      "duration": "45m",
+      "duration_sec": 2700,
+      "status": "investigating",
+      "notified": true,
+      "acknowledged": true
+    },
+    {
+      "id": 202,
+      "service_id": 14,
+      "alert_name": "Timeout Errors",
+      "severity": "critical",
+      "started_at": "2025-05-06T13:20:00Z",
+      "duration": "40m",
+      "duration_sec": 2400,
+      "status": "unresolved",
+      "notified": true,
+      "acknowledged": false
+    },
+    {
+      "id": 203,
+      "service_id": 2,
+      "alert_name": "Service Down",
+      "severity": "critical",
+      "started_at": "2025-05-06T13:50:00Z",
+      "duration": "10m",
+      "duration_sec": 600,
+      "status": "unresolved",
+      "notified": true,
+      "acknowledged": false
+    }
+  ],
+  "status_history": [
+    {
+      "id": 1,
+      "service_id": 1,
+      "time": "2025-05-06T12:00:00Z",
+      "uptime": 99.9,
+      "response_time": 300
+    },
+    {
+      "id": 2,
+      "service_id": 2,
+      "time": "2025-05-06T12:00:00Z",
+      "uptime": 99.7,
+      "response_time": 350
+    },
+    {
+      "id": 3,
+      "service_id": 6,
+      "time": "2025-05-06T13:00:00Z",
+      "uptime": 97.8,
+      "response_time": 750
+    },
+    {
+      "id": 4,
+      "service_id": 14,
+      "time": "2025-05-06T13:00:00Z",
+      "uptime": 96.2,
+      "response_time": 1300
+    },
+    {
+      "id": 5,
+      "service_id": 2,
+      "time": "2025-05-06T14:00:00Z",
+      "uptime": 95.0,
+      "response_time": 1600
+    },
+    {
+      "id": 6,
+      "service_id": 15,
+      "time": "2025-05-06T14:00:00Z",
+      "uptime": 99.7,
+      "response_time": 250
+    }
+  ]
+}

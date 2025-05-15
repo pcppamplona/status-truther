@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { StatusService } from "@/services/statusService";
-import { StatusHistory } from "@/types/statusHistory";
-import {AxiosResponse} from "axios";
-import {ApiResponse} from "@/types/api.ts";
+import { api } from "@/services/api";
+import { useQuery } from "react-query";
 
-export function useStatusHistory() {
-    const [data, setData] = useState<StatusHistory[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        StatusService.getHistory()
-            .then((res: AxiosResponse<ApiResponse<StatusHistory[]>>) => setData(res.data.data))
-            .catch(setError)
-            .finally(() => setLoading(false));
-    }, []);
-
-    return { data, loading, error };
+export interface StatusHistory {
+  id: number;
+  service_id: number;
+  time: string;
+  uptime: number;
+  response_time: number;
 }
+
+export const useStatusHistory = () => {
+  return useQuery<StatusHistory[]>({
+    queryKey: ["status_history"],
+    queryFn: async () => {
+      const { data } = await api.get("/status_history");
+      return data;
+    },
+  });
+};

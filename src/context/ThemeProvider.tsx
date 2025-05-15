@@ -13,7 +13,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export const ThemeProvider = ({
   children,
-  initialColorMode = 'light',
+  initialColorMode = 'dark',
 }: {
   children: React.ReactNode
   initialColorMode?: ThemeMode

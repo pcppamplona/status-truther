@@ -1,20 +1,25 @@
-import { useEffect, useState } from "react";
-import { StatusService } from "@/services/statusService";
-import { StatusIncident } from "@/types/statusIncidents";
-import {AxiosResponse} from "axios";
-import {ApiResponse} from "@/types/api.ts";
+import { api } from "@/services/api";
+import { useQuery } from "react-query";
 
-export function useStatusIncidents() {
-    const [data, setData] = useState<StatusIncident[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        StatusService.getActiveIncidents()
-            .then((res: AxiosResponse<ApiResponse<StatusIncident[]>>) => setData(res.data.data))
-            .catch(setError)
-            .finally(() => setLoading(false));
-    }, []);
-
-    return { data, loading, error };
+export interface StatusIncident {
+  id: number;
+  service_id: number;
+  alert_name: string;
+  severity: string;
+  started_at: string;
+  duration: string;
+  duration_sec: number;
+  status: string;
+  notified: boolean;
+  acknowledged: boolean;
 }
+
+export const useStatusIncidents = () => {
+  return useQuery<StatusIncident[]>({
+    queryKey: ["status_incidents"],
+    queryFn: async () => {
+      const { data } = await api.get("/status_incidents");
+      return data;
+    },
+  });
+};

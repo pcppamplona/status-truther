@@ -1,45 +1,95 @@
-interface StatusCardProps {
-    name: string;
-    status: string;
-    uptime: string;
-    bars: number;
+import { useState } from "react";
+import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
+import { SubCard } from "./SubCard";
+
+export interface ComponentData {
+  name: string;
+  status?: "Operational" | "Warning" | "Error";
+  uptime?: string;
+  bars?: Array<Number>;
+  children?: ComponentData[];
 }
 
-function getStatusColor(status: string, isBackgroud: boolean): string {
-    switch (status) {
-        case "Operational":
-            return isBackgroud ? "bg-green-500" : "text-green-500";
-        case "Warning":
-            return isBackgroud ? "bg-yellow-500" : "text-yellow-500";
-        case "Error":
-        case "Offline":
-            return isBackgroud ? "bg-red-500" : "text-red-500";
-        default:
-            return isBackgroud ? "bg-gray-400" : "text-gray-400";
-    }
+export interface StatusCardProps {
+  component: ComponentData;
 }
 
-export function StatusCard({ name, status, uptime, bars }: StatusCardProps) {
-    return (
-        <div className="w-full max-w-xl bg-[var(--bgPrimaryColor)] p-3 rounded-lg border-l-3 border-[var(--primaryColor)] flex-1">
-            <div className="flex justify-between items-center mb-2">
-                <h2 className="text-md font-medium">{name}</h2>
-                <h2 className={`text-md font-medium ${getStatusColor(status, false)}`}>
-                    {status}
-                </h2>
-            </div>
-            <div className="overflow-x-auto whitespace-nowrap mb-1">
-                <div className="flex gap-[2px]">
-                    {Array.from({ length: bars }).map((_, i) => (
-                        <div
-                            key={i}
-                            className={`h-4 w-1 rounded ${getStatusColor(status, true)}`}
-                            title={`Day ${i + 1}`}
-                        />
-                    ))}
-                </div>
-            </div>
-            <p className="text-xs text-gray-500">{uptime} uptime</p>
+export const getStatusColor = (status: string) => {
+  switch (status) {
+    case "Operational":
+      return "text-green-500";
+    case "Warning":
+      return "text-yellow-400";
+    case "Error":
+      return "text-red-500";
+    default:
+      return "text-gray-500";
+  }
+};
+export function StatusCard({ component }: StatusCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasChildren = component.children && component.children.length > 0;
+
+  return (
+    <div className="flex-1 flex-col w-full border-b border-[var(--borderColor)] p-8">
+      <div className="flex justify-between items-center mb-2">
+        <div className="flex items-center gap-2">
+          {hasChildren && (
+            <>
+              {isExpanded ? (
+                <CiSquareMinus
+                  size={22}
+                  onClick={() => setIsExpanded(!isExpanded)}
+                />
+              ) : (
+                <CiSquarePlus
+                  size={22}
+                  onClick={() => setIsExpanded(!isExpanded)}
+                />
+              )}
+            </>
+          )}
+          <span className="font-semibold text-[var(--paragraphColor)]">{component.name}</span>
         </div>
-    );
+        <span
+          className={`text-sm font-medium ${getStatusColor(component.status ?? "")}`}
+        >
+          {component.status}
+        </span>
+      </div>
+
+      <div className="mb-2 flex flex-wrap gap-[4px] justify-evenly">
+        {component.bars?.map((i, index) => (
+          <div
+            key={index}
+            className={`w-[8px] h-10 rounded-sm ${
+              component.status === "Error"
+                ? "bg-red-500"
+                : component.status === "Warning"
+                ? "bg-yellow-400"
+                : "bg-green-500"
+            }`}
+          />
+        ))}
+      </div>
+
+      {hasChildren && isExpanded && (
+        <div className="mt-10 border-l border-[var(--borderColor)] space-y-10">
+          {component.children!.map((child, idx) => (
+            <div key={idx} className="">
+              <SubCard component={child} />
+            </div>
+          ))}
+        </div>
+      )}
+      {!hasChildren && (
+
+        <div className="text-sm text-[var(--mutedColor)] flex justify-between">
+        <span>60 days ago</span>
+        <span>{component.uptime} uptime</span>
+        <span>Today</span>
+      </div>
+      )}
+    </div>
+  );
 }

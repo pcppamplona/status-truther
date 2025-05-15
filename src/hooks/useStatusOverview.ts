@@ -1,20 +1,28 @@
-import { useEffect, useState } from "react";
-import { StatusService } from "@/services/statusService";
-import {StatusOverview} from "@/types/statusOverview.ts";
-import {AxiosResponse} from "axios";
-import {ApiResponse} from "@/types/api.ts";
+import { api } from "@/services/api";
+import { useQuery } from "react-query/types/react/useQuery";
 
-export function useStatusOverview() {
-    const [data, setData] = useState<StatusOverview | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<unknown>(null);
-
-    useEffect(() => {
-        StatusService.getOverview()
-            .then((res: AxiosResponse<ApiResponse<StatusOverview>>) => setData(res.data.data))
-            .catch((err) => setError(err))
-            .finally(() => setLoading(false));
-    }, []);
-
-    return { data, loading, error };
+export interface StatusOverview {
+  id: number;
+  service_id: number;
+  status: string;
+  counts: {
+    total: number;
+    up: number;
+    down: number;
+    maintenance: number;
+    critical: number;
+    warning: number;
+  };
+  updated_at: string;
+  active_incidents: number;
 }
+
+export const useStatusOverview = () => {
+  return useQuery<StatusOverview[]>({
+    queryKey: ["status_overview"],
+    queryFn: async () => {
+      const { data } = await api.get("/status_overview");
+      return data;
+    },
+  });
+};
