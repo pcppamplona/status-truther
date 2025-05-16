@@ -1,4 +1,4 @@
-import { api } from "@/services/api";
+import { api } from "../services/api";
 import { useQuery } from "react-query";
 
 export interface StatusDependency {

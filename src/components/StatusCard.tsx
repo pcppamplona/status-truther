@@ -6,7 +6,7 @@ export interface ComponentData {
   name: string;
   status?: "Operational" | "Warning" | "Error";
   uptime?: string;
-  bars?: Array<Number>;
+  bars?: Array<Number> | number[];
   children?: ComponentData[];
 }
 
@@ -59,7 +59,7 @@ export function StatusCard({ component }: StatusCardProps) {
       </div>
 
       <div className="mb-2 flex flex-wrap gap-[4px] justify-evenly">
-        {component.bars?.map((i, index) => (
+        {component.bars?.map((_i, index) => (
           <div
             key={index}
             className={`w-[8px] h-10 rounded-sm ${

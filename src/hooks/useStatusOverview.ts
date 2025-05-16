@@ -1,7 +1,8 @@
-import { api } from "@/services/api";
-import { useQuery } from "react-query/types/react/useQuery";
+import { useQuery } from "react-query";
+import { api } from "../services/api";
 
 export interface StatusOverview {
+  componentId: number;
   id: number;
   service_id: number;
   status: string;

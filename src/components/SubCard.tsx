@@ -19,7 +19,7 @@ export function SubCard({ component }: StatusCardProps) {
         </div>
 
         <div className="mb-2 flex flex-wrap gap-[4px]">
-          {component.bars?.map((i, index) => (
+          {component.bars?.map((_i, index) => (
             <div
               key={index}
               className={`w-[8px] h-10 rounded-sm ${
